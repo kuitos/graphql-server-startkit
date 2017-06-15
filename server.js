@@ -1,0 +1,29 @@
+import express from 'express';
+import bodyParser from 'body-parser';
+import logger from 'morgan';
+import cors from 'cors';
+import glob from 'glob';
+import path from 'path';
+import { graphiqlExpress, graphqlExpress } from 'graphql-server-express';
+import schema from './database';
+
+const PORT = 8080;
+
+const app = express();
+
+app.use(cors());
+app.use(logger('combined'));
+
+// bodyParser is needed just for POST.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use('/graphql', graphqlExpress({ schema }));
+app.use('/graphiql', graphiqlExpress({
+	endpointURL: '/graphql'
+}));
+
+if (process.env.NODE_ENV === 'development') {
+	glob(path.resolve(__dirname, './mock/**/*.js'), {}, (er, modules) => modules.forEach(module => require(module).default(app)));
+}
+
+app.listen(PORT, () => console.log(`> Listening at port ${PORT}`));
