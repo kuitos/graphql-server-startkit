@@ -5,14 +5,14 @@ import cors from 'cors';
 import glob from 'glob';
 import path from 'path';
 import { graphiqlExpress, graphqlExpress } from 'graphql-server-express';
-import schema from './database';
+import schema from './models';
 
 const PORT = 8080;
 
 const app = express();
 
 app.use(cors());
-app.use(logger('combined'));
+app.use(logger('[:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - :response-time ms'));
 
 // bodyParser is needed just for POST.
 app.use(bodyParser.urlencoded({ extended: true }));

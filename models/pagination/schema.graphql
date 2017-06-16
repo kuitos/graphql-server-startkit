@@ -1,5 +1,5 @@
 interface Pagination {
     pageSize: Int
     pageNum: Int
-    total: Int,
+    total: Int
 }
