@@ -6,12 +6,19 @@
 import glob from 'glob';
 import path from 'path';
 import fs from 'fs';
-import resolvers from './resolver';
+import { merge } from 'lodash';
+
 import { addErrorLoggingToSchema, makeExecutableSchema } from 'graphql-tools';
 
-const modules = glob.sync(path.resolve(__dirname, './**/*.graphql'));
-const schemaStringArray = modules.map(module => fs.readFileSync(module, { encoding: 'UTF-8' }));
-const schema = makeExecutableSchema({ typeDefs: schemaStringArray, resolvers });
+// collect all schema definition
+const schemaModules = glob.sync(path.resolve(__dirname, './**/*.graphql'));
+const schemaStringArray = schemaModules.map(module => fs.readFileSync(module, { encoding: 'UTF-8' }));
+
+// collect all resolver definition
+const resolverModules = glob.sync(path.resolve(__dirname, './**/resolver.js'));
+const resolvers = resolverModules.map(module => require(module).default);
+
+const schema = makeExecutableSchema({ typeDefs: schemaStringArray, resolvers: merge(...resolvers) });
 
 addErrorLoggingToSchema(schema, {
 	log(e){

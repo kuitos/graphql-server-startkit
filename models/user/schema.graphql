@@ -1,12 +1,7 @@
 type User {
     id: ID!
     userName: String
-    age: Int
-    gender: String
-}
-
-input UserQuery {
-    userName: String
+    userMixNick: String
     age: Int
     gender: String
 }

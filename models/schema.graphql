@@ -1,3 +1,9 @@
+input UserQuery {
+    userName: String
+    age: Int
+    gender: String
+}
+
 type Query {
 
     user(id: ID!): User

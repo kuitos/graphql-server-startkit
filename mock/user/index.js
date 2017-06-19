@@ -44,4 +44,10 @@ export default router => {
 
 	});
 
+	router.get('/taobao/:userId/nick/', (req, res) => {
+
+		res.send(`${req.params.userId} ${Math.abs(Math.random() * 100000)}`);
+
+	});
+
 }
