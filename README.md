@@ -1,1 +1,1 @@
-# apollo-server
+# graphql-server-startkit
