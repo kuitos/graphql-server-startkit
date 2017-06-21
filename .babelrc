@@ -1,11 +1,18 @@
 {
   "passPerPreset": true,
   "presets": [
-	"es2015",
-	"stage-0"
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "stage-0"
   ],
   "plugins": [
-	"inline-import",
-	"lodash"
+    "inline-import",
+    "lodash"
   ]
 }
