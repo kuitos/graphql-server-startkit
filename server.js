@@ -12,7 +12,7 @@ const PORT = 8080;
 const app = express();
 
 app.use(cors());
-app.use(logger('[:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - :response-time ms'));
+app.use(logger('[:date[iso]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - :response-time ms'));
 
 // bodyParser is needed just for POST.
 app.use(bodyParser.urlencoded({ extended: true }));
